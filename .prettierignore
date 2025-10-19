@@ -1,0 +1,38 @@
+# Environment files
+*.env
+.env*
+
+# Dependency directories
+node_modules/
+bower_components/
+
+# Build outputs
+dist/
+build/
+out/
+coverage/
+
+# Framework outputs
+.next/
+.nuxt/
+.svelte-kit/
+.astro/
+
+# Caches
+.cache/
+.turbo/
+.nyc_output/
+.eslintcache
+
+# Lockfiles
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+bun.lockb
+
+# Minified bundles
+**/*.min.js
+**/*.min.css
+
+# Generated artifacts
+prisma/migrations/

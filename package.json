@@ -17,5 +17,9 @@
   "bugs": {
     "url": "https://github.com/Priyanshu2004-Singh/PriyanshuYoutubBackend/issues"
   },
-  "homepage": "https://github.com/Priyanshu2004-Singh/PriyanshuYoutubBackend#readme"
+  "homepage": "https://github.com/Priyanshu2004-Singh/PriyanshuYoutubBackend#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.10",
+    "prettier": "^3.6.2"
+  }
 }
