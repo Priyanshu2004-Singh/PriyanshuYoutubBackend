@@ -1,7 +1,5 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import cors from 'cors';
-import bodyParser from 'body-parser';
 import connectDb from './db/db.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -14,14 +12,24 @@ dotenv.config({ path: path.resolve(__dirname, '../.env') });
 //Initiaslising App:
 const app = express();
 
-//Middlewares
-app.use(cors());
-app.use(bodyParser.json());
-
 //Important Variables: 
 const PORT = process.env.PORT || 3000;
 
+//! Connecting DataBase and Starting Server:
 connectDb()
+.then(()=>{
+    // If having err on server Side:
+    app.on("error",(err)=>{
+        console.error("Server Side err while connecting to db : ",err);
+        process.exit(1);
+    })
+    app.listen(PORT,()=>{
+        console.log(`Port is running on : ${PORT}`);
+    })
+})
+.catch((err)=>{
+    console.error(`Error Found : ${err}`);
+})
 
 /*
 //database connection Using IIFE: ()() first one contain an arrow function:
@@ -42,12 +50,3 @@ const app = express();
     }
 })()
 */
-
-//Get route
-app.get("/",(req,res)=>{
-    res.send("Welcome to MongoDb Connection Server:")
-})
-
-app.listen(PORT,()=>{
-    console.log(`App is Running on port ${PORT}`)
-})
