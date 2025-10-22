@@ -1,7 +1,8 @@
 import express from 'express';
 import cors from 'cors';
-import bodyParser, { urlencoded } from 'body-parser';
+// import bodyParser, { urlencoded } from 'body-parser';
 import cookieParser from 'cookie-parser';
+import userRoutes from './routes/user.routes.js';
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(express.urlencoded({extended:true,limit:"100kb"}));
 app.use(express.static("public"))
 //Accessing Cokkies and managing cookies:
 app.use(cookieParser())
+app.use("/api/v1/users",userRoutes);
 
 
 export default app;
