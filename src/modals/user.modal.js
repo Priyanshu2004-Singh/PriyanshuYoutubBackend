@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 
 const userSchema = mongoose.Schema(
   {
-    username: {
+    userName: {
       type: String,
       required: true,
       unique: true,
@@ -55,7 +55,7 @@ userSchema.pre('save', async function (next) {
   // Take password and do hashing also create a json token for validation:
   // We want only once and at that time when pasword is modified then update it:
   if (!this.isModified('password')) return next();
-  this.password = bcrypt.hash(this.password, 10); // 10 round hashing and salting.
+  this.password = await bcrypt.hash(this.password, 10); // 10 round hashing and salting.
   next(); // passing to next middleware:
 });
 
@@ -69,7 +69,7 @@ userSchema.methods.generateAccessToken = function () {
     //creation of AccessToken and expiry:
   return jwt.sign(
     {
-      _id: this._id,
+      _id: this._id, // mongoose provide automatiicaly craete using moongodb
       email: this.email,
       username: this.username,
       fullName: this.fullName,
