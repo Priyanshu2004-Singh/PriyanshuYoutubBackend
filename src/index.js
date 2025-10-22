@@ -1,15 +1,16 @@
-import express from 'express';
-import dotenv from 'dotenv';
+// import express from 'express';
+// Load .env before importing other modules so environment variables are available at module-evaluation time
+import './loadEnv.js';
 import connectDb from './db/db.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { debug } from 'console';
+// import { debug } from 'console';
 import app from './app.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-dotenv.config({ path: path.resolve(__dirname, '../.env') },{debug:true});
+// dotenv is loaded via the side-effect import above
 
 //Important Variables: 
 const PORT = process.env.PORT || 3000;

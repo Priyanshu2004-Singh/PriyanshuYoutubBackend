@@ -29,7 +29,7 @@ const userSchema = mongoose.Schema(
       type: String,
       required: [true, 'password is required'],
     },
-    avtar: {
+    avatar: {
       type: String, // use cloudnary for uploading image and storing only URL in the DB
       required: true,
       unique: true,

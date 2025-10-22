@@ -21,23 +21,25 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new apiError(409, 'User Already exist.');
   }
 
-  //local Path of avtar:
-  const localAvtarPath = req.files?.avtar[0]?.path;
-  const localCoverImagePath = req.files?.coverImage[0]?.path;
+  //local Path of avatar (support both misspelled "avatar" and "avatar")
+  const localavatarPath = req.files?.avatar?.[0]?.path;
+  const localCoverImagePath = req.files?.coverImage?.[0]?.path;
 
-  if(!localAvtarPath){
-    throw new apiError(400,"Avtar file is required");
-  };
-  const avtar = await uploadImage(localAvtarPath);
-  const coverImage = await uploadImage(localCoverImagePath);
-  //Checking avtar is available or not
-  if(!avtar){
-    throw new apiError(400,"Avtar file is required");
+  if (!localavatarPath) {
+    throw new apiError(400, "Avatar file is required");
+  }
+
+  const avatar = await uploadImage(localavatarPath);
+  // cover image is optional
+  const coverImage = localCoverImagePath ? await uploadImage(localCoverImagePath) : null;
+  //Checking avatar is available or not
+  if (!avatar) {
+    throw new apiError(400, "Avatar file is required");
   }
   //todo : -Now saving it to db :
   const user = await User.create({
     fullName,
-    avtar:avtar.url,
+    avatar:avatar.url,
     coverImage:coverImage?.url || "",
     email,
     password,
